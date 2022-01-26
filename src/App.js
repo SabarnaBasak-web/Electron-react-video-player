@@ -1,10 +1,22 @@
 import './App.css';
-
+import InputComponent from './Components/InputComponent';
+import VideoPlayer from './Components/VideoPlayer';
+import { UrlProvider } from './Context/urlContext';
+import FileExplorer from './Components/FileExplorer';
 function App() {
   return (
-    <div className="App">
-     <h1>Hello React</h1>
-    </div>
+    <UrlProvider >
+      <div className='flex flex-row'>
+        <div className="container p-2 w-3/4">
+          <InputComponent />
+          <VideoPlayer />
+        </div>
+        <div className='bg-red-900 w-1/4'>
+          <FileExplorer />
+        </div>
+      </div>
+
+    </UrlProvider>
   );
 }
 

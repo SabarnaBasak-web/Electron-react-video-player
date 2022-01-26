@@ -1,7 +1,8 @@
 // main.js
-
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, dialog, Menu } = require('electron')
+require('@electron/remote/main').initialize();
+
+const { app, BrowserWindow, dialog, Menu, webContents } = require('electron')
 const path = require('path');
 const fs = require('fs');
 const isDev = require('electron-is-dev');
@@ -22,15 +23,18 @@ const createWindow = () => {
     if(!folderDir) return;
   }
 
+  console.log(`${__dirname}`);
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 1200,
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+    webPreferences: {     
       nodeIntegration: true,
+      contextIsolation: false, 
+      enableRemoteModule: true,
+      webContents:true,
     }
   })
-
+  require('@electron/remote/main').enable(mainWindow.webContents);
   // and load the index.html of the app.
   mainWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`);
 
@@ -66,6 +70,20 @@ const createWindow = () => {
           accelerator: process.platform === 'darwin' ? 'Cmd+B' : 'Ctrl+B',
           click() {
             showFolderWindow();
+          }
+        },
+        {
+          label: 'Dev Tools',
+          accelerator: process.platform === 'darwin' ? 'Cmd+i' : 'Ctrl+i',
+          click(){
+            mainWindow.webContents.openDevTools();
+          }
+        },
+        {
+          label: 'Reload',
+          accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+          click(){
+            mainWindow.webContents.reload();
           }
         },
         isMac ? { role: 'close' } : { role: 'quit' },
