@@ -4,7 +4,6 @@ import { UrlContext } from '../Context/urlContext';
 
 function InputComponent() {
     const {url, setURL} = useContext(UrlContext);
-    // console.log(setURL);
     const formik = useFormik({
         initialValues: {
             url: '',

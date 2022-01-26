@@ -11,7 +11,7 @@ function App() {
           <InputComponent />
           <VideoPlayer />
         </div>
-        <div className='bg-red-900 w-1/4'>
+        <div className='bg-neutral-800 w-1/4'>
           <FileExplorer />
         </div>
       </div>

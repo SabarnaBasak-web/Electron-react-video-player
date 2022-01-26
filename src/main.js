@@ -23,7 +23,6 @@ const createWindow = () => {
     if(!folderDir) return;
   }
 
-  console.log(`${__dirname}`);
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 600,
@@ -32,6 +31,7 @@ const createWindow = () => {
       contextIsolation: false, 
       enableRemoteModule: true,
       webContents:true,
+      webSecurity: false,
     }
   })
   require('@electron/remote/main').enable(mainWindow.webContents);
