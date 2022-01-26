@@ -26,7 +26,6 @@ const fetchFileSize = () => {
 
 function FileExplorer() {
     const files = fetchFileSize();
-    console.log(files);
     return (
         <div>
             {files.map(item => {
