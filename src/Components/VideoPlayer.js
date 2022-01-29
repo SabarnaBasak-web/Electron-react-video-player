@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 
 function VideoPlayer() {
     const { url, setURL } = useContext(UrlContext);
+    console.log(url);
     const onDownloadButtonHandler = () => {
         console.log('clickd');
     }
@@ -14,6 +15,13 @@ function VideoPlayer() {
                 controls
                 height='400px'
                 width='100%'
+                playing={true}
+                config={{                   
+                    file:{
+                        forceVideo:true,
+                        forceAudio: true,
+                    }
+                }}
             />
             <button onClick={onDownloadButtonHandler}>Click</button>
         </div>
