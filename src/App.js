@@ -11,7 +11,7 @@ function App() {
           <InputComponent />
           <VideoPlayer />
         </div>
-        <div className='bg-neutral-800 w-1/4'>
+        <div className='bg-neutral-800 w-1/4 break-words overflow-auto '>
           <FileExplorer />
         </div>
       </div>
