@@ -20,10 +20,7 @@ function VideoPlayer() {
                 config={{                   
                     file:{
                         forceVideo:true,
-                        forceAudio: true,
-                        track:[
-                            {kind:'subtitle', src:'subs/subtitles.en.vtt', srcLang: 'en', default: true}
-                        ]
+                        forceAudio: true,                        
                     }
                 }}
             />
