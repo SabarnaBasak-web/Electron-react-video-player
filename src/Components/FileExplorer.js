@@ -11,21 +11,17 @@ const { app, dialog } = window.require('@electron/remote');
 function FileExplorer() {
     const { url, setURL } = useContext(UrlContext);
     const openFolderHandler = () => {
-         dialog.showOpenDialog({
+        dialog.showOpenDialog({
             properties: ['openFile', 'multiSelection']
         })
             .then(async data => {
-                // console.log();
-                await console.log(data);
-                setURL({ currentURL: { url: data.filePaths }, allURL: [...url.allURL, data.filePaths] });
-                const response = url.allURL.indexOf(data.filePaths);
-                console.log(response);
+                setURL({ currentURL: { url: data.filePaths }, allURL: [...url.allURL, data.filePaths] });                
                 return data;
             })
             .catch(error => console.log(error));
     }
-    const runFileHandler = (filePath)=>{        
-        setURL({ currentURL: { url: filePath }, allURL: [...url.allURL] });        
+    const runFileHandler = (filePath) => {
+        setURL({ currentURL: { url: filePath }, allURL: [...url.allURL] });
     }
     return (
         <div className='mt-3 ml-1 word-breaks p-2'>
@@ -33,13 +29,13 @@ function FileExplorer() {
                 <FolderOpenIcon className='text-sm' /> Open Folder</button>
             {url.allURL && url.allURL.length > 0 && (<h5 className='font-Manrope mt-2 text-sm'>Recently played</h5>)}
             <div className='mt-2'>
-                {url.allURL.map(item => {                    
+                {url.allURL.map(item => {
                     const file = Array.isArray(item) ? item[0] : item.url
                     let fileName;
-                    if(file){
-                        fileName= getFileName(file) 
-                    };                   
-                    return <p className='text-sm font-Manrope font-medium my-2' onClick={runFileHandler.bind(this,file)}><VideoFileIcon />{fileName}</p>
+                    if (file) {
+                        fileName = getFileName(file)
+                    };
+                    return <p className='text-sm font-Manrope font-medium my-2 cursor-pointer' onClick={runFileHandler.bind(this, file)}><VideoFileIcon />{fileName}</p>
                 })}
             </div>
         </div>
