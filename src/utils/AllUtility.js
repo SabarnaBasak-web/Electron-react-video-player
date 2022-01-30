@@ -1,7 +1,5 @@
-export const getFileName = (fullPath) => {
-    console.log(fullPath);
+export const getFileName = (fullPath) => {    
     const urlRegex = /^http/;
-    if(fullPath)
     if(fullPath !== '' && !urlRegex.test(fullPath)){
         const filePath = fullPath.split('\\');
         const fileName = filePath[filePath.length - 1];
