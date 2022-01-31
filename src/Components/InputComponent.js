@@ -1,20 +1,22 @@
 import React, { useContext } from 'react';
 import { useFormik } from 'formik';
-import { UrlContext } from '../Context/urlContext';
+// import { UrlContext } from '../Context/urlContext';
 import SearchIcon from '@mui/icons-material/Search';
+import { useSelector, useDispatch } from 'react-redux';
+import {addURL} from '../Store/Reducers';
+
 function InputComponent() {
-    const { url, setURL } = useContext(UrlContext);
+    const url = useSelector(state=>state.url);
+    const dispatch = useDispatch();    
     const formik = useFormik({
         initialValues: {
             url: '',
         },
         onSubmit: values => {
-            if (values !== '') {
-                setURL({ currentURL: values, allURL: [...url.allURL, values] });
-            }
+            dispatch(addURL(values.url));                
         },
     })
-
+  
     return (
         <form onSubmit={formik.handleSubmit} className="w-full p-1">
             <label htmlFor="url" className='font-Manrope w-1/3' >URL </label>
