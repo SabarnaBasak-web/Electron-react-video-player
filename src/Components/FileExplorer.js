@@ -1,27 +1,32 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import VideoFileIcon from '@mui/icons-material/VideoFile';
-import { UrlContext } from '../Context/urlContext';
+
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { getFileName } from '../utils/AllUtility';
+import { useDispatch, useSelector } from 'react-redux';
+import { addURL, runURL } from '../Store/Reducers';
+
 
 const fs = window.require('fs');
 const pathModule = window.require('path');
 const { app, dialog } = window.require('@electron/remote');
 
 function FileExplorer() {
-    const { url, setURL } = useContext(UrlContext);
+    const url = useSelector(state=>state.url);
+    console.log(url);
+    const dispatch = useDispatch();
     const openFolderHandler = () => {
         dialog.showOpenDialog({
             properties: ['openFile', 'multiSelection']
         })
-            .then(async data => {
-                setURL({ currentURL: { url: data.filePaths }, allURL: [...url.allURL, data.filePaths] });                
+            .then(async data => {              
+                dispatch(addURL(data.filePaths));           
                 return data;
             })
             .catch(error => console.log(error));
     }
     const runFileHandler = (filePath) => {
-        setURL({ currentURL: { url: filePath }, allURL: [...url.allURL] });
+        dispatch(runURL(filePath));  
     }
     return (
         <div className='mt-3 ml-1 word-breaks p-2'>
@@ -30,7 +35,8 @@ function FileExplorer() {
             {url.allURL && url.allURL.length > 0 && (<h5 className='font-Manrope mt-2 text-sm'>Recently played</h5>)}
             <div className='mt-2'>
                 {url.allURL.map(item => {
-                    const file = Array.isArray(item) ? item[0] : item.url
+                    console.log(item);
+                    const file = Array.isArray(item) ? item[0] : item
                     let fileName;
                     if (file) {
                         fileName = getFileName(file)

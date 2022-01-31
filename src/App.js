@@ -1,11 +1,13 @@
 import './App.css';
 import InputComponent from './Components/InputComponent';
 import VideoPlayer from './Components/VideoPlayer';
-import { UrlProvider } from './Context/urlContext';
 import FileExplorer from './Components/FileExplorer';
+import { Provider } from 'react-redux';
+import Store from './Store/Store';
+
 function App() {
   return (
-    <UrlProvider >
+    <Provider store={Store}>
       <div className='flex flex-row'>
         <div className="container p-2 w-3/4">
           <InputComponent />
@@ -15,8 +17,8 @@ function App() {
           <FileExplorer />
         </div>
       </div>
+    </Provider>
 
-    </UrlProvider>
   );
 }
 
