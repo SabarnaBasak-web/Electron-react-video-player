@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useFormik } from 'formik';
-// import { UrlContext } from '../Context/urlContext';
 import SearchIcon from '@mui/icons-material/Search';
-import { useSelector, useDispatch } from 'react-redux';
-import {addURL} from '../Store/Reducers';
+import { useDispatch } from 'react-redux';
+import {addURL} from '../Store/Actions';
 
-function InputComponent() {
-    const url = useSelector(state=>state.url);
+function InputComponent() {    
     const dispatch = useDispatch();    
     const formik = useFormik({
         initialValues: {

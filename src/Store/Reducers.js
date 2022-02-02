@@ -1,22 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { ADD_URL,RUN_LINK } from "./Types";
 
-export const URLSlice = createSlice({
-    name: 'urlStore',
-    initialState: {
-        currentURL: '',
-        allURL: [],
-    },
-    reducers: {
-        addURL: (state, action) => {
-            state.currentURL = action.payload;
-            state.allURL = [...state.allURL, action.payload];
-        },
-        runURL:(state,action)=>{
-            state.currentURL = action.payload;
-        }
+const initialState = {
+    currentURL: '',
+    allURL: [],
+}
+
+const urlReducer = (state=initialState, action)=>{
+    switch(action.type){
+        case ADD_URL: return{
+            ...state,
+            currentURL: action.payload,
+            allURL: [...state.allURL, action.payload] 
+        };       
+        case RUN_LINK: return{
+            ...state,
+            currentURL: action.payload
+        };
+        default: return state;
     }
-})
+}
 
-export const {addURL, runURL} = URLSlice.actions
-
-export default URLSlice.reducer
+export default urlReducer;
