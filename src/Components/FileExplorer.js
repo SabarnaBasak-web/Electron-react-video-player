@@ -4,15 +4,14 @@ import VideoFileIcon from '@mui/icons-material/VideoFile';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import { getFileName } from '../utils/AllUtility';
 import { useDispatch, useSelector } from 'react-redux';
-import { addURL, runURL } from '../Store/Reducers';
+import { addURL, runLink } from '../Store/Actions';
 
-
-const fs = window.require('fs');
-const pathModule = window.require('path');
-const { app, dialog } = window.require('@electron/remote');
+// const fs = window.require('fs');
+// const pathModule = window.require('path');
+const { dialog } = window.require('@electron/remote');
 
 function FileExplorer() {
-    const url = useSelector(state=>state.url);
+    const url = useSelector(state=>state);
     console.log(url);
     const dispatch = useDispatch();
     const openFolderHandler = () => {
@@ -26,7 +25,7 @@ function FileExplorer() {
             .catch(error => console.log(error));
     }
     const runFileHandler = (filePath) => {
-        dispatch(runURL(filePath));  
+        dispatch(runLink(filePath));  
     }
     return (
         <div className='mt-3 ml-1 word-breaks p-2'>

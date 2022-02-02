@@ -1,10 +1,10 @@
 import React  from 'react';
 import ReactPlayer from 'react-player';
 import DownloadIcon from '@mui/icons-material/Download';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function VideoPlayer() {
-    const url = useSelector(state => state.url);
+    const url = useSelector(state => state.currentURL);
     const onDownloadButtonHandler = () => {
         console.log('clickd');
     }
@@ -13,7 +13,7 @@ function VideoPlayer() {
     return (
         <div className="mt-1 p-3">
             <ReactPlayer
-                url={url.currentURL}
+                url={url}
                 controls
                 height='400px'
                 width='100%'
